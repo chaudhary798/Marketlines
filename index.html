@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MarketLens – Crypto & Forex Rates and Signals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef2f6;--card:#fff;--ink:#14212e;--mute:#5d6b79;--line:#d8e0e8;--acc:#0f5fd0;--up:#0b7a4b;--dn:#c0352f;--hold:#7a6a1f;--upbg:#dff3e8;--dnbg:#fbe4e2;--hbg:#f5efc9;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d141b;--card:#152029;--ink:#e6edf3;--mute:#93a3b3;--line:#263544;--acc:#6aa5ff;--up:#4fd199;--dn:#ff7f78;--hold:#e3cd6a;--upbg:#12352a;--dnbg:#40201f;--hbg:#3a3416;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d141b;--card:#152029;--ink:#e6edf3;--mute:#93a3b3;--line:#263544;--acc:#6aa5ff;--up:#4fd199;--dn:#ff7f78;--hold:#e3cd6a;--upbg:#12352a;--dnbg:#40201f;--hbg:#3a3416;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.5 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 16px 40px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
+.logo{font-weight:600;font-size:18px;letter-spacing:-.01em}
+.logo span{color:var(--acc)}
+.live{font-size:13px;color:var(--mute);display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--up)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,tr:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.theme{border:1px solid var(--line);background:var(--card);border-radius:6px;padding:4px 10px;font-size:13px}
+h1{font-size:clamp(26px,4.5vw,40px);line-height:1.1;letter-spacing:-.025em;font-weight:600;margin:6px 0 8px;max-width:16ch}
+.lead{color:var(--mute);max-width:56ch;margin:0 0 18px}
+.pulse{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.pill{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 14px;font-size:14px}
+.pill b{font-size:22px;font-weight:500;margin-right:6px}
+.grid{display:grid;gap:16px}
+@media (min-width:960px){.grid{grid-template-columns:1.25fr 1fr;align-items:start}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;padding:12px;border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:4px}
+.tabs button{border:1px solid transparent;background:none;padding:6px 12px;border-radius:6px;color:var(--mute)}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--card)}
+input[type=search]{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 10px;min-width:0;flex:1 1 150px;max-width:240px}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:520px}
+th{font-weight:500;color:var(--mute);font-size:13px;text-align:right;padding:8px 12px;border-bottom:1px solid var(--line)}
+td{padding:10px 12px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:var(--bg)}
+tbody tr.sel{background:var(--bg);box-shadow:inset 3px 0 0 var(--acc)}
+.sym{font-weight:600}.nm{color:var(--mute);font-size:13px;margin-left:6px}
+.up{color:var(--up)}.dn{color:var(--dn)}
+.badge{display:inline-block;padding:2px 10px;border-radius:99px;font-size:13px;font-weight:500}
+.b2,.b1{background:var(--upbg);color:var(--up)}.b0{background:var(--hbg);color:var(--hold)}.bm1,.bm2{background:var(--dnbg);color:var(--dn)}
+.det{padding:16px}
+.det h2{margin:0;font-size:20px;font-weight:600}
+.big{font-size:30px;margin:4px 0 10px}
+svg{display:block;width:100%;height:auto}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--mute);margin:6px 0 14px}
+.kv{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.kv div{background:var(--bg);border-radius:8px;padding:8px 10px}
+.kv small{display:block;color:var(--mute);font-size:12px}
+h3{font-size:14px;font-weight:600;margin:0 0 6px}
+.v{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line);font-size:14px}
+.note{margin-top:18px;font-size:13px;color:var(--mute);border-top:1px solid var(--line);padding-top:12px}
+.empty{padding:24px;color:var(--mute);text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <div class="logo">Market<span>Lens</span></div>
+ <div style="display:flex;gap:12px;align-items:center">
+  <div class="live"><span class="dot"></span>Live market data</div>
+  <button class="theme" id="th" type="button">Switch theme</button>
+ </div>
+</header>
+<h1>Every rate and signal, on one screen</h1>
+<p class="lead">Crypto coins, exchange prices and forex pairs with signals calculated from RSI and moving averages. Select any row to see its chart and venue prices.</p>
+<div class="pulse" id="pulse"></div>
+<div class="grid">
+ <section class="panel" aria-label="Markets">
+  <div class="bar">
+   <div class="tabs" id="tabs">
+    <button type="button" data-f="all" aria-pressed="true">All</button>
+    <button type="button" data-f="c" aria-pressed="false">Crypto</button>
+    <button type="button" data-f="f" aria-pressed="false">Forex</button>
+   </div>
+   <input type="search" id="q" placeholder="Search BTC, EUR/USD…" aria-label="Search markets">
+  </div>
+  <div class="scroll"><table>
+   <thead><tr><th>Market</th><th>Price</th><th>Change</th><th>Trend</th><th>Signal</th></tr></thead>
+   <tbody id="rows"></tbody>
+  </table></div>
+ </section>
+ <section class="panel det" id="det" aria-live="off"></section>
+</div>
+<p class="note">Crypto prices come from Binance public market data and change is the 24-hour move. Forex change is measured since the server started, and forex signals show Warming up until enough price history is collected. Signals are automatic indicator readings, not financial advice, and no outcome is guaranteed. Trading crypto and forex carries a high risk of loss.</p>
+</div>
+<script>
+var M=[],F="all",Q="",S=0;
+function sma(h,n){var r=[],i,j,t;for(i=0;i<h.length;i++){if(i<n-1){r.push(null);continue}t=0;for(j=i-n+1;j<=i;j++)t+=h[j];r.push(t/n)}return r}
+function rsi(h,n){var g=0,l=0,i,d;for(i=h.length-n;i<h.length;i++){d=h[i]-h[i-1];if(d>0)g+=d;else l-=d}return l==0?100:100-100/(1+g/l)}
+function sig(m){var h=m.h;if(h.length<31)return{sc:0,r:50,a:sma(h,10),b:sma(h,30),l:"Warming up",c:"b0"};var a=sma(h,10),b=sma(h,30),r=rsi(h,14),k=h.length-1,sc=(a[k]>b[k]?1:-1)+(r<35?1:r>65?-1:0);
+return{sc:sc,r:r,a:a,b:b,l:["Strong sell","Sell","Hold","Buy","Strong buy"][sc+2],c:"b"+(sc<0?"m"+(-sc):sc)}}
+function f(p,d){return p.toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d})}
+function spark(h){var s=h.slice(-40),mn=Math.min.apply(0,s),mx=Math.max.apply(0,s),w=84,hh=24,
+pts=s.map(function(v,i){return(i*w/Math.max(s.length-1,1)).toFixed(1)+","+(hh-2-(v-mn)/(mx-mn||1)*(hh-4)).toFixed(1)}).join(" ");
+return'<svg viewBox="0 0 84 24" width="84" height="24" aria-hidden="true" style="width:84px;display:inline-block"><polyline points="'+pts+'" fill="none" stroke="'+(s[s.length-1]>=s[0]?"var(--up)":"var(--dn)")+'" stroke-width="1.5"/></svg>'}
+function vis(){return M.map(function(m,i){m.i=i;return m}).filter(function(m){return(F=="all"||m.t==F)&&(m.s+m.n).toLowerCase().indexOf(Q)>-1})}
+function render(){
+ if(!M.length){document.getElementById("rows").innerHTML='<tr><td colspan="5" class="empty">Loading market data…</td></tr>';return}
+ var all=M.map(sig),cnt={b:0,h:0,s:0};all.forEach(function(s){s.sc>0?cnt.b++:s.sc<0?cnt.s++:cnt.h++});
+ document.getElementById("pulse").innerHTML='<div class="pill"><b class="mono up">'+cnt.b+'</b>Buy signals</div><div class="pill"><b class="mono">'+cnt.h+'</b>Hold</div><div class="pill"><b class="mono dn">'+cnt.s+'</b>Sell signals</div>';
+ var v=vis(),h="";
+ v.forEach(function(m){var p=m.h[m.h.length-1],c=(p/m.o-1)*100,s=sig(m);
+ h+='<tr tabindex="0" data-i="'+m.i+'"'+(m.i==S?' class="sel"':'')+'><td><span class="sym">'+m.s+'</span><span class="nm">'+m.n+'</span></td><td class="mono">'+f(p,m.d)+'</td><td class="mono '+(c>=0?"up":"dn")+'">'+(c>=0?"+":"")+c.toFixed(2)+'%</td><td>'+spark(m.h)+'</td><td><span class="badge '+s.c+'">'+s.l+'</span></td></tr>'});
+ document.getElementById("rows").innerHTML=h||'<tr><td colspan="5" class="empty">No market matches your search. Try a different symbol.</td></tr>';
+ detail()}
+function detail(){
+ var m=M[S],s=sig(m),p=m.h[m.h.length-1],c=(p/m.o-1)*100,W=600,H=220,mn=Math.min.apply(0,m.h),mx=Math.max.apply(0,m.h);
+ function line(a,col,dash){var q=[];a.forEach(function(v,i){if(v!=null)q.push((i*W/Math.max(a.length-1,1)).toFixed(1)+","+(H-10-(v-mn)/(mx-mn||1)*(H-20)).toFixed(1))});
+ return'<polyline points="'+q.join(" ")+'" fill="none" stroke="'+col+'" stroke-width="'+(dash?1.5:2.2)+'"'+(dash?' stroke-dasharray="5 4"':'')+'/>'}
+ var rows='<div class="v"><span>'+m.src+'</span><span class="mono">'+f(p,m.d)+'</span></div>';
+ document.getElementById("det").innerHTML='<h2>'+m.s+' <span class="nm">'+m.n+'</span></h2><div class="big mono">'+f(p,m.d)+' <span class="'+(c>=0?"up":"dn")+'" style="font-size:16px">'+(c>=0?"+":"")+c.toFixed(2)+'%</span></div>'+
+ '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Price chart for '+m.s+'" style="background:var(--bg);border-radius:8px">'+line(m.h,"var(--ink)")+line(s.a,"var(--acc)",1)+line(s.b,"var(--hold)",1)+'</svg>'+
+ '<div class="legend"><span>Solid: price</span><span style="color:var(--acc)">Dashed: 10-period average</span><span style="color:var(--hold)">Dashed: 30-period average</span></div>'+
+ '<div class="kv"><div><small>Signal</small><span class="badge '+s.c+'">'+s.l+'</span></div><div><small>RSI (14)</small><span class="mono">'+s.r.toFixed(1)+'</span></div><div><small>Trend</small>'+(s.a[s.a.length-1]>s.b[s.b.length-1]?"Short avg above long":"Short avg below long")+'</div></div>'+
+ '<h3>'+"Data source"+'</h3>'+rows}
+document.getElementById("rows").addEventListener("click",function(e){var t=e.target.closest("tr");if(t&&t.dataset.i){S=+t.dataset.i;render()}});
+document.getElementById("rows").addEventListener("keydown",function(e){if(e.key=="Enter"){var t=e.target.closest("tr");if(t&&t.dataset.i){S=+t.dataset.i;render();var r=document.querySelector('tr[data-i="'+S+'"]');if(r)r.focus()}}});
+document.getElementById("tabs").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;F=b.dataset.f;
+ Array.prototype.forEach.call(this.children,function(x){x.setAttribute("aria-pressed",x==b)});render()});
+document.getElementById("q").addEventListener("input",function(){Q=this.value.trim().toLowerCase();render()});
+document.getElementById("th").addEventListener("click",function(){var r=document.documentElement,d=r.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");r.setAttribute("data-theme",d=="dark"?"light":"dark")});
+function load(){fetch("/api/markets").then(function(r){return r.json()}).then(function(d){if(d.length){M=d;if(S>=M.length)S=0;render()}}).catch(function(){})}
+render();load();setInterval(load,5000);
+</script>
+</body>
+</html>
